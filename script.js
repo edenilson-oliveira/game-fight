@@ -139,7 +139,7 @@ function gameCharacters(element){
     let elementDirection = element.direction
     let spritePosition = elementDirection*-element.spritePos
     ctx.scale(elementDirection,1)
-    ctx.drawImage(element.sprite,posIniX,30,largSprites,128,(elementDirection*element.x)+spritePosition,element.y,elementDirection*88,70)
+    ctx.drawImage(element.sprite,posIniX,30,largSprites,128,(elementDirection*element.x)+spritePosition,element.y,elementDirection*90,45)
     ctx.scale(elementDirection,1)
   }
   if(element.win == false){
