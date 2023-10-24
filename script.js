@@ -19,7 +19,7 @@ let velocity = 2
 let timeJump = 400
 let ground = 90
 const spriteMoviments = ['Idle','Run','Jump','Attack_1','Attack_2','Dead']
-const nameCharacter = ['samurai-commander','samurai_archer','samurai','kunochi','ninja-monk','ninja-peasant','lightning-mage','fire-vizard','wanderer-magican']
+const nameCharacter = ['samurai-commander','samurai-archer','samurai','kunochi','ninja-monk','ninja-peasant','lightning-mage','fire-vizard','wanderer-magican']
 
 const player = {
   name: 'Player',
