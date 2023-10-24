@@ -153,6 +153,7 @@ details a {
 @media screen and (orientation:landscape){
   body{
     flex-direction: row;
+    justify-content: center;
   }
   canvas{
     position: absolute;
