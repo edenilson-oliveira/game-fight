@@ -5,6 +5,11 @@ const btnRight = document.getElementById('right')
 const btnJump = document.getElementById('jump')
 const btnAttackOne = document.getElementById('attack-1')
 const btnAttackTwo = document.getElementById('attack-2')
+const btnConfirm = document.getElementById('confirm')
+const selectCharacter = document.querySelector('#selection-character')
+const buttons = document.getElementById('buttons')
+const choicePlayer = document.getElementsByName('box-player')
+const choiceOpponent = document.getElementsByName('box-opponent')
 
 let canvasWidth = canvas.offsetWidth
 let canvasHeight = canvas.offsetHeight
@@ -14,7 +19,7 @@ let velocity = 2
 let timeJump = 400
 let ground = 90
 const spriteMoviments = ['Idle','Run','Jump','Attack_1','Attack_2','Dead']
-const nameCharacter = ['samurai-commander','samurai_archer','samurai','kunochi','ninja-monk','ninja-peasant','fire-vizard','lightning-mage','wanderer-magican']
+const nameCharacter = ['samurai-commander','samurai_archer','samurai','kunochi','ninja-monk','ninja-peasant','lightning-mage','fire-vizard','wanderer-magican']
 
 const player = {
   name: 'Player',
@@ -23,9 +28,10 @@ const player = {
   numSprites: 0,
   animationTime: 0,
   spritePos: 40,
+  choiceIndex: 0,
   sprite: new Image(),
   spriteImg: function(){
-    this.sprite.src = `assets/${nameCharacter[3]}/${spriteMoviments[this.actionActual]}.png`
+    this.sprite.src = `assets/${nameCharacter[this.choiceIndex]}/${spriteMoviments[this.actionActual]}.png`
   },
   x:60,
   y:0,
@@ -40,8 +46,8 @@ const player = {
   attackSize: 40,
   jump: [false,0],
   direction: 1,
-  life: 100,
-  lifeX:2,
+  life: 120,
+  lifeX:-5,
   damage: false,
   win: null,
   idle: true,
@@ -54,9 +60,10 @@ const opponent = {
   numSprites: 0,
   animationTime: 0,
   spritePos: 47,
+  choiceIndex: 0,
   sprite: new Image(),
   spriteImg: function(){
-    this.sprite.src = `assets/${nameCharacter[0]}/${spriteMoviments[this.actionActual]}.png`
+    this.sprite.src = `assets/${nameCharacter[this.choiceIndex]}/${spriteMoviments[this.actionActual]}.png`
   },
   x:200,
   y:0,
@@ -71,7 +78,7 @@ const opponent = {
   attackSize: 40,
   jump: [false,0],
   direction: -1,
-  life: 100,
+  life: 120,
   lifeX: 297,
   damage: false,
   win: null,
@@ -81,7 +88,7 @@ const opponent = {
 let largSprites = 0
 let posIniX = 0
 
-let time = 60
+let time = 0
 let countTime = setInterval(()=>{time--},1000)
 
 function updateGame(){
@@ -91,7 +98,22 @@ function updateGame(){
   movimentOpponent()
   requestAnimationFrame(updateGame)
 }
-requestAnimationFrame(updateGame)
+
+btnConfirm.onclick = () => {
+  requestAnimationFrame(updateGame)
+  selectCharacter.classList.toggle("animation")
+  canvas.display = 'block'
+  time = 60
+ function choiceCharacter(element,choice){
+  choice.forEach((number,index) => {
+    if(choice[index].checked){
+      element.choiceIndex = index
+    }
+  })
+ }
+ choiceCharacter(player,choicePlayer)
+ choiceCharacter(opponent,choiceOpponent)
+}
 
 
 function updateCharacter(character){
@@ -103,7 +125,8 @@ function updateCharacter(character){
   drawJump(character)
   attack(character)
 }
-let backgroundImg = new Image()
+
+
 function drawPlayer(){
   updateCharacter(player)
   detectedWin(player,opponent)
@@ -131,6 +154,7 @@ function gameCharacters(element){
   if(element.y >= ground){
     element.movimentY = 0
   }
+  
   function drawSprites(timeActual){
     if(element.countSprites > element.numSprites-1){
       element.countSprites = 0
@@ -142,6 +166,7 @@ function gameCharacters(element){
     ctx.drawImage(element.sprite,posIniX,30,largSprites,128,(elementDirection*element.x)+spritePosition,element.y,elementDirection*90,45)
     ctx.scale(elementDirection,1)
   }
+  
   if(element.win == false){
     element.actionActual = 5
     element.y = ground
@@ -194,8 +219,10 @@ function drawLife(element){
     lifeX = 298
   }
   ctx.scale(-directionLife,1)
-  ctx.strokeRect(lifeX,0,-102,23)
-  ctx.fillRect(element.lifeX,2,-element.life,20)
+  ctx.fillRect(lifeX,3,-125,12)
+  
+  ctx.fillStyle="#0000ff"
+  ctx.fillRect(element.lifeX,4,-element.life,10)
   ctx.scale(-directionLife,1)
 }
 
