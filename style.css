@@ -54,7 +54,7 @@ canvas{
   display: block;
   justify-content: center;
   width: 260px;
-  height: 260px;
+  height: 280px;
   text-align: center;
   background-color: #42445A;
   
@@ -115,6 +115,11 @@ input{
   opacity: 0;
 }
 
+.btn-and-reference{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #confirm{
   width: 90px;
   height: 30px;
@@ -122,6 +127,16 @@ input{
   border-radius: 10px;
   border: none;
 }
+details{
+  color: white;
+  align-self: end;
+  font-size: .8em;
+}
+
+details a {
+  color: white;
+}
+
 .select-opponent img{
   transform: scale(-1,1);
 }
