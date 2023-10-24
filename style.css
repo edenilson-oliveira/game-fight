@@ -3,21 +3,23 @@ body{
   height: 100vh;
   margin: 0;
   display: flex;
+  align-items: center;
   flex-direction: column;
   background-color: gray;
 }
 
 canvas{
+  display: block;
   width: 100%;
   height: 50%;
-  margin: 5px 0px 0px 0px;
   background-image: url(assets/background.png);
   background-size: 100% 100%;
 }
 
 #buttons{
-  width: 95%;
   display: flex;
+  width: 95%;
+  height: 50px;
   justify-content: space-around;
   margin: 5px;
 }
@@ -30,7 +32,7 @@ canvas{
   justify-content: start;
 }
 
-button{
+#buttons button{
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -44,6 +46,95 @@ button{
   align-self: center;
 }
 
+#selection-character{
+  margin: 10px;
+  border-radius: 10px;
+  z-index: 2;
+  position: absolute;
+  display: block;
+  justify-content: center;
+  width: 260px;
+  height: 260px;
+  text-align: center;
+  background-color: #42445A;
+  
+}
+#selection-character h1{
+  margin: 0px;
+  color: white;
+}
+#selection-character h2{
+  display: inline-block;
+  margin: 0px 18px;
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+}
+#selection-character > div{
+  display: flex;
+}
+#selection-character.animation{
+  animation-name: scroll-top;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+canvas.animation{
+  display: block;
+}
+.select-player,.select-opponent{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.area-selection{
+  width: 30px;
+  height: 60px;
+  border-radius: 3px;
+  margin: 0px 2px;
+}
+.area-selection:active{
+  border: 1px solid red;
+}
+label{
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+label > img{
+  width: 80%;
+  height: 80%;
+}
+input{
+  opacity: 0;
+}
+
+#confirm{
+  width: 90px;
+  height: 30px;
+  margin: 2px;
+  border-radius: 10px;
+  border: none;
+}
+.select-opponent img{
+  transform: scale(-1,1);
+}
+
+@keyframes scroll-top{
+  from{
+    transform: translateY(0);
+  }
+  to{
+    transform: translateY(-400px);
+  }
+}
+
 @media screen and (orientation:landscape){
   body{
     flex-direction: row;
@@ -53,11 +144,12 @@ button{
     height: 100vh;
   }
   #buttons{
-    align-self: end;
     padding-bottom: 5px;
-    z-index: 2;
+    margin: 50px;
+    align-self: end;
+    z-index: 1;
   }
-  button{
+  #buttons button{
     background-color: #FFFFFF30 ;
   }
 }
@@ -66,7 +158,7 @@ button{
   canvas{
     height: 100vh;
   }
-  button{
+  #buttons button{
     display: none;
   }
 }
