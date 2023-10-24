@@ -134,6 +134,10 @@ function drawPlayer(){
 }
 
 function drawOpponent(){
+  
+  
+  
+  
   updateCharacter(opponent)
   detectedWin(opponent,player)
 }
@@ -220,7 +224,6 @@ function drawLife(element){
   }
   ctx.scale(-directionLife,1)
   ctx.fillRect(lifeX,3,-125,12)
-  
   ctx.fillStyle="#0000ff"
   ctx.fillRect(element.lifeX,4,-element.life,10)
   ctx.scale(-directionLife,1)
@@ -229,11 +232,9 @@ function drawLife(element){
 btnLeft.addEventListener('touchstart',(ev)=>{
   ev.preventDefault()
   player.left = true
-  player.direction = 1
 })
 
 btnLeft.addEventListener('touchend',(ev)=>{
-  ev.preventDefault()
   player.left = false
 })
 
@@ -250,7 +251,7 @@ btnAttackOne.addEventListener('click',()=>{
     player.attackOne = true
     setTimeout(()=>{
       player.attackOne = false
-    },900)
+    },500)
   }
 })
 btnAttackTwo.addEventListener('click',()=>{
@@ -258,7 +259,7 @@ btnAttackTwo.addEventListener('click',()=>{
     player.attackTwo = true
     setTimeout(()=>{
       player.attackTwo = false
-    },900)
+    },500)
   }
 })
 
@@ -284,6 +285,57 @@ function attack(element){
     ctx.fillRect(element.x+element.sizeX*element.direction+ajustedDirection,element.y,element.attackSize,15)
   }
 } 
+
+window.onkeydown = (ev)=>{
+ console.log(ev.keyCode)
+  switch (ev.keyCode) {
+    case 37:
+      ev.preventDefault()
+      player.left = true
+      break
+      
+    case 38:
+      if(player.y == ground){
+        player.jump[0] = true
+        setTimeout(()=>{player.jump[0] = false},timeJump)
+    }
+      break
+    
+    case 39:
+      ev.preventDefault()
+      player.right = true
+      break 
+    case 65:
+      if(player.attackOne == false && player.attackTwo == false && player.win == null){
+          player.attackOne = true
+          setTimeout(()=>{
+          player.attackOne = false
+          },500)
+        }
+        break
+      
+    case 88:
+      if(player.attackTwo == false && player.attackOne == false && player.win == null){
+          player.attackTwo = true
+          setTimeout(()=>{
+            player.attackTwo = false
+          },500)
+  }
+      break
+  }
+}
+window.onkeyup = (ev) => {
+  switch(ev.keyCode){
+    case 37:
+       ev.preventDefault()
+      player.left = false
+      break
+    case 39:
+ ev.preventDefault()
+      player.right = false
+      break
+  }
+}
 
 function detectedWin(element,elementTarget){
   function drawTime(){
@@ -374,13 +426,13 @@ function movimentOpponent(){
     opponent.attackOne = true
     setTimeout(()=>{
       opponent.attackOne = false
-    },800)
+    },500)
     }
   if(playersDistance >=-30 && playersDistance <= 40 && opponent.attackOne == false && opponent.attackTwo == false && opponent.win == null && intelligence == 5){
       opponent.attackTwo = true
     setTimeout(()=>{
       opponent.attackTwo = false
-    },800)
+    },500)
     }
   if(playersDistance >= 40 && opponent.y == ground && opponent.life <= 85 && opponent.attackOne == false && opponent.attackTwo == false && intelligence == 3){
     setTimeout(()=>{
